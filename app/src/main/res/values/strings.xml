@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">OTPDemo</string>
+    <string name="auth_prompt">Send the auto-generated message in WhatsAPP to complete registration.</string>
+    <string name="auth_prompt_cancel">cancel</string>
+</resources>
