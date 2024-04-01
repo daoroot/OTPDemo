@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startVerificationCode(String sdkId, String phone, String appName) {
-        boolean isStartWhatsApSucess = false;
         String userID = CommonUtil.getUserID(this);
         long timecurrentTimeMillis = System.currentTimeMillis();
         String token = userID + String.valueOf(timecurrentTimeMillis);
@@ -119,14 +118,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
             uploadErrorInfo(sdkId, CommonUtil.getUserID(this), String.valueOf(BUSINESS_SCENE_VERIFICATION_CODE), String.valueOf(SUCESS_START_WHATS_APP));
-            isStartWhatsApSucess = true;
         } catch (Exception exception) {
-            isStartWhatsApSucess = false;
             uploadErrorInfo(sdkId, CommonUtil.getUserID(this), String.valueOf(BUSINESS_SCENE_VERIFICATION_CODE), String.valueOf(ERROR_FAILED_START_WHATS_APP));
             Log.d(TAG, exception.toString());
-        }
-        if (isStartWhatsApSucess) {
-            uploadUserId(phone, appName);
         }
     }
 
@@ -146,33 +140,6 @@ public class MainActivity extends AppCompatActivity {
                             Log.e(TAG, "uploadErrorInfo.sucess");
                         } else {
                             Log.e(TAG, "uploadErrorInfo.failed");
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                });
-
-    }
-
-    private void uploadUserId(String cooperatorPersonalMobile, String appName) {
-
-        DataModel.uploadUserId(this, cooperatorPersonalMobile, appName).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<CommonResponse>() {
-                    @Override
-                    public void accept(CommonResponse commonResponse) throws Exception {
-                        if (commonResponse == null) {
-                            return;
-                        }
-                        String code = commonResponse.getCode();
-                        Log.e(TAG, "uploadUserId.code=" + code);
-                        if ("2000".equals(code)) {
-                            Log.e(TAG, "uploadUserId.sucess");
-                        } else {
-                            Log.e(TAG, "uploadUserId.failed");
                         }
                     }
                 }, new Consumer<Throwable>() {

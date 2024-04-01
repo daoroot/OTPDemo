@@ -14,9 +14,6 @@ public interface ApiService {
      *
      * @return
      */
-    @FormUrlEncoded
-    @POST("sdk-upload-data/save")
-    Observable<CommonResponse> uploadUserId(@Field("deviceId") String deviceId,@Field("cooperatorPersonalMobile") String cooperatorPersonalMobile,@Field("appName") String appName);
 
     @FormUrlEncoded
     @POST("sdk/save-error-log")
